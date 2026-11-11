@@ -302,5 +302,3 @@
                 Console.WriteLine("Opción no válida. Inténtalo de nuevo.");
             }
         }
-    }
-}
