@@ -1,0 +1,6 @@
+Fallos
+El codigo anterior tenia fallos en todos lados, estructura, semantica, y hasta en francés, revisando el codigo casi que haciendolo todo de nuevo casi me muero, ya que desde la lnea 15 habia echo las cosas mal,
+derrepente cambiaba las variables segun me venian a la cabeza y no cambiaba las del principio, los bucles estaban cerrados antes de tiempo, y a partir de la linea 120, estaban las variables en mayuscula.
+
+¡Nuevo aprendizaje!
+Al iniciar el codigo el resultado aparecia demasiado junto, y como no sabia como camiar de linea, busque en google, y encontre las new lines lo que yo pensaba que se esribia whriteline era (\n = salto de linea)
