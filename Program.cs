@@ -1,9 +1,10 @@
 
-        double precioBolsillo = 120.00;     
-        double precioPulsera = 95.00;       
-        double precioSobremesa = 150.00;    
+        // --precios y reglas
+        double precioBolsillo = 120.00;     // reloj de bolsillo clásico
+        double precioPulsera = 95.00;       // reloj de pulsera
+        double precioSobremesa = 150.00;    // reloj de sobremesa
 
-        double precioGrabado = 25.00;     
+        double precioGrabado = 25.00;       
         double precioCaja = 15.00;          
         double precioFoto = 30.00;          
 
@@ -16,6 +17,7 @@
         double encargoMasCaro = 0;
         string clienteMasCaro = "";
 
+        // --Menú principal se repite hasta elegir salir
         int opcionMenu = 0;
         while (opcionMenu != 3)
         {
@@ -28,18 +30,20 @@
 
             if (opcionMenu == 1)
             {
+                // --Datos del cliente 
                 Console.WriteLine("\n--- NUEVO ENCARGO ---");
                 string cliente = "";
                 while (cliente == "")
                 {
                     Console.Write("Nombre del cliente: ");
-                    cliente = (Console.ReadLine() ?? "").Trim();  
+                    cliente = (Console.ReadLine() ?? "").Trim();   // Trim quita los espacios
                     if (cliente == "")
                     {
                         Console.WriteLine("El nombre no puede estar vacío.");
                     }
                 }
 
+                // --Reloj principal 
                 int modelo = 0;
                 while (modelo < 1 || modelo > 3)
                 {
@@ -73,6 +77,7 @@
                     precioModelo = precioSobremesa;
                 }
 
+                // --extras cada uno solo una vz
                 bool grabado = false;
                 bool caja = false;
                 bool foto = false;
@@ -142,6 +147,7 @@
                     }
                 }
 
+                // --Recogida o envío
                 int entrega = 0;
                 while (entrega < 1 || entrega > 2)
                 {
@@ -163,6 +169,7 @@
                 {
                     modalidad = "Envío a domicilio";
                     suplemento = suplementoEnvio;
+                    // La dirección solo se pide si hay envío
                     while (direccion == "")
                     {
                         Console.Write("Dirección de envío: ");
@@ -178,6 +185,8 @@
                     modalidad = "Recogida en tienda";
                 }
 
+                // --cálculo del pago
+
                 double subtotal = precioModelo + totalExtras;
                 double descuento = 0;
                 if (subtotal >= limiteDescuento)
@@ -188,7 +197,7 @@
                 double total = subtotal - descuento + suplemento;
                 if (total < 0)
                 {
-                    total = 0;  
+                    total = 0;   // El total nunca puede ser negativo
                 }
 
                 Console.WriteLine("\n--- DESGLOSE ---");
@@ -199,6 +208,8 @@
                 Console.WriteLine($"Suplemento de envío: {suplemento:F2} €");
                 Console.WriteLine($"TOTAL A PAGAR: {total:F2} €");
 
+                // --cobro
+                // Se repite pidiendo el importe completo hasta que sea suficiente
                 double entregado;
                 do
                 {
@@ -211,13 +222,17 @@
                 } while (entregado < total);
 
                 double cambio = entregado - total;
+
+                // --Se contabiliza el encargo una sola vez
                 encargosCobrados++;
-                recaudacion += total;                 
+                recaudacion += total;                 // sumar el total final, no lo entregado
                 if (total > encargoMasCaro)           
                 {
                     encargoMasCaro = total;
                     clienteMasCaro = cliente;
                 }
+
+                // -- justificante
                 Console.WriteLine("\n========== JUSTIFICANTE K·HAN ==========");
                 Console.WriteLine($"Encargo nº: {encargosCobrados}");
                 Console.WriteLine($"Cliente: {cliente}");
@@ -260,10 +275,11 @@
             }
             else if (opcionMenu == 2)
             {
+                // --caja de la sesión
                 Console.WriteLine("\n--- CAJA DE LA SESIÓN ---");
                 if (encargosCobrados == 0)
                 {
-                    Console.WriteLine("Todavía no hay encargos cobrados.");   /
+                    Console.WriteLine("Todavía no hay encargos cobrados.");   // --no dividir entre 0
                 }
                 else
                 {
@@ -275,7 +291,9 @@
                 }
             }
             else if (opcionMenu == 3)
-            {                Console.WriteLine("\nGracias por usar la gestión de K·HAN. ¡Hasta pronto!");
+            {
+                //-- resumen
+                Console.WriteLine("\nGracias por usar la gestión de K·HAN. ¡Hasta pronto!");
                 Console.WriteLine($"Encargos cobrados: {encargosCobrados}");
                 Console.WriteLine($"Ingresos totales: {recaudacion:F2} €");
             }
@@ -283,61 +301,6 @@
             {
                 Console.WriteLine("Opción no válida. Inténtalo de nuevo.");
             }
-        }
-    }
-}
-        if (numExtras == 0)
-        {
-            Console.WriteLine("Extras: ninguno");
-        }
-        else
-        {
-            Console.WriteLine("extras");
-            if (Grabado)
-            { Console.WriteLine(" - Grabado de dedicatoria "); }
-            if (caja)
-            { Console.WriteLine(" - Caja de regalo artesanal "); }
-            if (foto)
-            { Console.WriteLine(" - fotografia en la esfera "); }
-        }
-        Console.WriteLine($"entrega: {modalidad}");
-        if (entrega == 2)
-        { Console.WriteLine($"Direccion: {direccion}");}
-        Console.WriteLine("-------------------------------------");
-        Console.WriteLine($"Precio del reloj: {precioModelo:F2 } €");
-        Console.WriteLine($"Extras: {totalExtras:F2 }€");
-        Console.WriteLine($"Descuento: -{descuento:F2 }€");
-        Console.WriteLine($"Suplemento de envío: {suplemento:F2 }€");
-        Console.WriteLine($"TOTAL: {total:F2 }€");
-        Console.WriteLine($"Entregado: {entregado:F2 }€");
-        Console.WriteLine($"Cambio: {cambio:F2 }€");
-        Console.WriteLine("-------------------------------------");
-        Console.WriteLine($"Gracias por confiar en K·HAN: {cliente: }");
-else if{
-            Console.WriteLine("---CAJA---");
-            if (encargosCobrados == 0)
-            {
-                Console.WriteLine("Todavia no hay encargos cobrados.");
-            }
-            else
-            {
-                double media = recaudacion / encargosCobrados;
-                Console.WriteLine($"Encargos cobrados: {encargosCobrados}");
-                Console.WriteLine($"Recaudación: {recaudacion:F2} €");
-                Console.WriteLine($"Importe medio: {media:F2} €");
-                Console.WriteLine($"Encaro mas caro: {encargoMasCaro:F2} €({clienteMasCaro})");
-
-            }
-        }
-        else if (opcionesMenu == 3)
-        {
-            Console.WriteLine("Gracias por usar los servicios de K·HAN. ¡Hasta pronto!");
-            Console.WriteLine($"Encaros cobrados: {encargosCobrados}");
-            Console.WriteLine($"Ingresos totales: {recaudacion:F2} €");
-        }
-        else
-        {
-            Console.WriteLine("opción no valida. Intentalo de nuevo.")
         }
     }
 }
